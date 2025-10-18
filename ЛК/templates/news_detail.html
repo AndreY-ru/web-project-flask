@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block body%}
+<main class="container">
+  
+    <div class="breadcrumb">
+        <a href="{{ url_for('user') }}">Главная</a>
+        <span class="separator">/</span>
+        <a href="{{ url_for('news_list') }}">Все новости</a>
+        <span class="separator">/</span>
+        <span>{{ news.title }}</span>
+    </div>
+      <h1 class="card-title card--aligned">{{ news.title }}</h1>
+    <div class="card">
+      <div class="author">Автор: {{ news.author }} | {{ news.publish_date.strftime('%d.%m.%Y') }}</div>
+      <p style="margin-top: 20px; line-height: 1.6;">{{ news.content }}</p>
+    </div>
+</main>
+{% endblock %}

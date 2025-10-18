@@ -1,0 +1,121 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    Профиль
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <h2 class="card-title card--aligned">Авторизация в личном кабинете</h2>
+        <div class="card auth-card">
+            <form id="loginForm" class="form-section" method="POST" action="/login">
+                <div class="form-group">
+                    <label for="educationForm">Форма обучения:</label>
+                    <select name="study_form" id="educationForm" required>
+                        <option value="" disabled selected>Выберите форму обучения</option>
+                        {% for form in forms %}
+                            <option value="{{ form }}">{{ form }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="course">Курс:</label>
+                    <select name="course" id="course" required disabled>
+                        <option value="" disabled selected>Сначала выберите форму обучения</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="group">Группа:</label>
+                    <select name="group_id" id="group" required disabled>
+                        <option value="" disabled selected>Сначала выберите курс</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="student">Студент:</label>
+                    <select name="student_id" id="student" required disabled>
+                        <option value="" disabled selected>Сначала выберите группу</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" name="password" id="password" class="tab" placeholder="Введите пароль" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Войти</button>
+                {% if error %}
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </main>
+    
+    <script>
+        document.getElementById('educationForm').addEventListener('change', async function() {
+            const studyForm = this.value;
+            const courseSelect = document.getElementById('course');
+            courseSelect.disabled = true;
+            courseSelect.innerHTML = '<option disabled selected>Загрузка...</option>';
+        
+            const res = await fetch(`/get_courses?study_form=${studyForm}`);
+            const courses = await res.json();
+        
+            courseSelect.innerHTML = '<option value="" disabled selected>Выберите курс</option>';
+            courses.forEach(course => {
+                courseSelect.innerHTML += `<option value="${course}">${course} курс</option>`;
+            });
+            courseSelect.disabled = false;
+        
+            // Сброс следующих полей
+            resetSelect('group', 'Сначала выберите курс');
+            resetSelect('student', 'Сначала выберите группу');
+        });
+        
+        document.getElementById('course').addEventListener('change', async function() {
+            const course = this.value;
+            const studyForm = document.getElementById('educationForm').value;
+            const groupSelect = document.getElementById('group');
+            groupSelect.disabled = true;
+            groupSelect.innerHTML = '<option disabled selected>Загрузка...</option>';
+        
+            const res = await fetch(`/get_groups?study_form=${studyForm}&course=${course}`);
+            const groups = await res.json();
+        
+            groupSelect.innerHTML = '<option value="" disabled selected>Выберите группу</option>';
+            groups.forEach(group => {
+                groupSelect.innerHTML += `<option value="${group.id}">${group.name}</option>`;
+            });
+            groupSelect.disabled = false;
+        
+            resetSelect('student', 'Сначала выберите группу');
+        });
+        
+        document.getElementById('group').addEventListener('change', async function() {
+            const groupId = this.value;
+            const studentSelect = document.getElementById('student');
+            studentSelect.disabled = true;
+            studentSelect.innerHTML = '<option disabled selected>Загрузка...</option>';
+        
+            const res = await fetch(`/get_students?group_id=${groupId}`);
+            const students = await res.json();
+        
+            studentSelect.innerHTML = '<option value="" disabled selected>Выберите студента</option>';
+            students.forEach(student => {
+                studentSelect.innerHTML += `<option value="${student.id}">${student.full_name}</option>`;
+            });
+            studentSelect.disabled = false;
+        });
+        
+        function resetSelect(id, placeholder) {
+            const sel = document.getElementById(id);
+            sel.disabled = true;
+            sel.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
+        }
+        </script>
+        
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ subject.name }}{% endblock %}
+
+{% block body %}
+<main class="container">
+  <!-- Навигационная цепочка -->
+  <nav class="breadcrumb">
+    <a href="{{ url_for('education') }}?semester_id={{ subject.semester_id }}">
+      {{ subject.semester_name }}
+    </a>
+    <span class="separator">/</span>
+    <span>{{ subject.name }}</span>
+  </nav>
+  
+  <div class="layout">
+    <div class="left-content">
+      <!-- Преподаватели -->
+      <div class="card">
+        <h3 class="card-title card--aligned">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" width="18px" height="18px" viewBox="0 0 24 24">
+            <path d="M12,1A11,11,0,1,0,23,12,11.013,11.013,0,0,0,12,1Zm0,20a9.641,9.641,0,0,1-5.209-1.674,7,7,0,0,1,10.418,0A9.167,9.167,0,0,1,12,21Zm6.694-3.006a8.98,8.98,0,0,0-13.388,0,9,9,0,1,1,13.388,0ZM12,6a4,4,0,1,0,4,4A4,4,0,0,0,12,6Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,12Z"/>
+          </svg>
+          Преподаватели
+        </h3>
+        
+        {% for teacher in teachers %}
+        <section class="profile">
+          <div class="profile-img-container">
+            <div class="profile-img">
+              {% if teacher.profile_photo %}
+                <img src="{{ url_for('static', filename=teacher.profile_photo) }}"
+                      alt="Фото преподавателя"
+                      class="profile-photo"
+                      onerror="this.onerror=null; this.innerHTML='{{ teacher.first_name|first }}{{ teacher.surname|first }}'">
+              {% else %}
+                {{ teacher.first_name|first }}{{ teacher.surname|first }}
+              {% endif %}
+            </div>
+          </div>
+          
+          <div class="profile-info">
+            <h2>{{ teacher.surname }} {{ teacher.first_name }} {{ teacher.patronymic or '' }}</h2>
+            <p><strong>Должность:</strong> {{ teacher.position }}</p>
+            <p><strong>Кафедра:</strong> {{ teacher.department_name }}</p>
+            <p><strong>Написать сообщение:</strong>
+              <a href="mailto:{{ teacher.email }}">{{ teacher.email }}</a>
+            </p>
+          </div>
+        </section>
+        {% endfor %}
+      </div>
+      
+      <!-- Таблица видов учебной деятельности -->
+      <section class="card">
+        <div class="section-title"><h3>Таблица видов учебной деятельности</h3></div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Вид деятельности</th>
+                <th>История баллов</th>
+                <th>Итог</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for activity in activities %}
+              <tr>
+                <td>{{ activity.name }}</td>
+                <td>{{ activity.student_score }} / {{ activity.max_score }}</td>
+                <td>{{ activity.student_score }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+      <!-- Статистика отправки работ -->
+      <section class="card">
+        <div class="section-title"><h3>Статистика отправки работ</h3></div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Тип работы</th>
+                <th>Название</th>
+                <th>Статус</th>
+                <th>Результат</th>
+                <th>Баллы / Макс. балл</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for assignment in assignments %}
+              <tr>
+                <td>Письменное задание</td>
+                <td>{{ assignment.title }}</td>
+                <td>{{ assignment.status or 'Не отправлено' }}</td>
+                <td>{{ assignment.score or '-' }} / {{ assignment.max_score }}</td>
+                <td>{{ assignment.score or '0' }} / {{ assignment.max_score }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Результаты по предмету -->
+    <section class="right-content">
+      <h3 class="card card-title card--aligned">📘 Результаты по: {{ subject.name }}</h3>
+      <div class="card">
+        <div class="section-title"><h3>📂 Структура курса</h3></div>
+        <div class="list-library">
+          {% for material in materials|groupby('title') %}
+          <div class="section-title">{{ material.grouper }}</div>
+          <ul>
+            {% for item in material.list %}
+            <li>
+              <a href="{{ url_for('download', file_id=item.id) if item.file_path else '#' }}">
+                {{ item.description or item.title }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+
+{% block title %}Профиль{% endblock %}
+
+{% block body %}
+
+<main class="container">
+  <section class="card profile">
+    <div class="profile-img-container">
+      <label for="profile-photo-input" class="profile-img">
+        {% if student.profile_photo %}
+        <img src="{{ url_for('static', filename=student.profile_photo) }}"
+          alt="Фото профиля"
+          class="profile-photo"
+          onerror="this.onerror=null; this.parentElement.innerHTML='Фото';">
+        {% else %}
+          <span>Фото</span>
+        {% endif %}
+      </label>
+      <input type="file" id="profile-photo-input" accept="image/*" style="display: none;">
+      {% if student.profile_photo %}
+        <button class="delete-photo-btn" onclick="deleteProfilePhoto()">Удалить</button>
+      {% endif %}
+    </div>
+    
+    <div class="profile-info">
+      <h2>{{ student.surname }} {{ student.first_name }} {{ student.patronymic }}</h2>
+      <p><strong>Город:</strong> {{ student.city }}</p>
+      <p><strong>Дата рождения:</strong> {{ student.birth_date.strftime('%d.%m.%Y') if student.birth_date else '—' }}</p>
+      <p><strong>VK ID:</strong> {{ student.VK_id }}</p>
+      <p><strong>Контактный телефон:</strong> {{ student.phone or '—' }}</p>
+      <p><strong>Email:</strong> {{ student.email }}</p>
+      <p><strong>Группа:</strong> {{ student.group_name }} ({{ student.group_short }}), <strong>Курс:</strong> {{ student.course }}</p>
+      <p><strong>Форма обучения:</strong> {{ student.study_form }}</p>
+      <p><strong>Специальность:</strong> {{ student.orientation }}</p>
+      <p><strong>Кафедра:</strong> {{ student.department_name }} ({{ student.department_short }})</p>
+      <p><strong>Зачетная книжка:</strong> {{ student.record_book }}</p>
+      <p><strong>Расписание:</strong> <a href="{{ student.schedule }}">Ссылка</a></p>
+    </div>
+  </section>
+
+  <section class="card news">
+    <h3>📰 Новости</h3>
+    <ul>
+      {% for item in news %}
+      <li>
+        <span class="highlight">
+          <a href="{{ url_for('news_detail', news_id=item.id) }}">{{ item.title }}</a>
+        </span> — {{ item.publish_date.strftime('%d.%m.%Y, %H:%M') }}
+        <span class="author">{{ item.author }}</span>
+      </li>
+      {% else %}
+      <li>Нет доступных новостей</li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('news_list') }}">
+      <strong class="all-news">Просмотреть все новости</strong>
+    </a>
+  </section>
+  
+</main>
+
+<script>
+  document.getElementById('profile-photo-input').addEventListener('change', function(e) {
+    if (e.target.files.length > 0) {
+      uploadProfilePhoto(e.target.files[0]);
+    }
+  });
+
+  function uploadProfilePhoto(file) {
+    const formData = new FormData();
+    formData.append('photo', file);
+    
+    fetch('/upload_profile_photo', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        window.location.reload();
+      } else {
+        alert(data.error || 'Ошибка при загрузке фото');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Ошибка при загрузке фото');
+    });
+  }
+
+  function deleteProfilePhoto() {
+    if (confirm('Вы действительно хотите удалить фото профиля?')) {
+      fetch('/delete_profile_photo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.reload();
+        } else {
+          alert(data.error || 'Ошибка при удалении фото');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка при удалении фото');
+      });
+    }
+  }
+</script>
+{% endblock %}

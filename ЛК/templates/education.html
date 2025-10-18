@@ -1,0 +1,83 @@
+<!-- education.html -->
+{% extends 'base.html'%}
+
+{% block title %}
+Образование
+{% endblock %}
+
+{% block body %}
+<main class="container">
+  <!-- Динамические кнопки семестров -->
+  <div class="semester-buttons">
+    {% for data in semester_data %}
+    <button class="tab {% if data.semester.id == active_semester_id or (not active_semester_id and loop.first) %}active{% endif %}"
+        onclick="showSemester('semester{{ data.semester.id }}')">
+    {{ data.semester.name }}
+    {% if data.semester.is_current %}(текущий){% endif %}
+    </button>
+
+    {% endfor %}
+  </div>
+
+  <!-- Динамическое содержимое для каждого семестра -->
+  {% for data in semester_data %}
+  <div id="semester{{ data.semester.id }}" class="tab-content card {% if data.semester.id == active_semester_id or (not active_semester_id and loop.first) %}active{% endif %}">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Дисциплина</th>
+            <th>Форма отчетности</th>
+            <th>Суммарный балл</th>
+            <th>Оценка</th>
+            <th>Учебный курс</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for subject in data.subjects %}
+          <tr>
+            <td>{{ subject.subject_name }}</td>
+            <td>{{ subject.assessment_forms or 'Нет' }}</td>
+            <td>{{ "%.1f"|format(subject.total_score) }}</td>
+            <td>
+              {{ subject.grade_letter or '' }}
+              {% if subject.is_passed is not none %}
+                ({{ 'зачтено' if subject.is_passed else 'не зачтено' }})
+              {% endif %}
+            </td>
+            <td>
+              <a class="link" href="/subject/{{ subject.subject_group_id }}">
+                Перейти к изучению
+              </a>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5">Нет дисциплин в этом семестре</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+</main>
+
+<script>
+  function showSemester(semesterId) {
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.remove('active');
+  });
+
+  document.querySelectorAll('.semester-buttons .tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+
+  document.getElementById(semesterId).classList.add('active');
+
+  // Используй 'this', если вызываешь через onclick
+  event.currentTarget?.classList.add('active');
+}
+
+</script>
+{% endblock %}

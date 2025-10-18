@@ -1,0 +1,881 @@
+/* Основные стили для html и body */
+html, body {
+  height: 100%;                    /* Фиксируем высоту для растягивания на весь экран */
+  margin: 0;                       /* Убираем стандартные отступы браузера */
+  padding: 0;                      /* Убираем стандартные внутренние отступы */
+  display: flex;                   /* Включаем flex-разметку */
+  flex-direction: column;          /* Располагаем дочерние элементы в колонку */
+  font-family: Arial, sans-serif;  /* Устанавливаем основной шрифт */
+  background-color: #f5f5f5;     /* Цвет фона страницы */
+  color: #333;                   /* Основной цвет текста */
+}
+
+/* Основное содержимое страницы */
+main {
+  flex: 1;                        /* Растягиваем на всё доступное пространство */
+}
+
+/* Стилизация скролла на всей странице */
+body::-webkit-scrollbar {
+  width: 10px;               /* ширина скроллбара */
+}
+
+body::-webkit-scrollbar-track {
+  background: #2e2e2e;       /* фон трека */
+  border-radius: 0px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #84868a;       /* цвет полосы */
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #656668;       /* при наведении */
+  transition: all 0.3s ease;
+}
+
+/* Верхняя панель */
+.top-bar {
+  background-color: #7fa0c8; /* Тёмно-синий фон */
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.university-logo {
+  height: 35px;
+  width: auto;
+  margin-right: 15px;
+}
+
+.university-name {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  line-height: 1.3;
+  max-width: 300px;
+}
+
+.university-name .full-name {
+  font-size: 10px;
+  display: block;
+}
+
+.university-name .short-name {
+  font-size: 6px;
+  opacity: 0.9;
+  display: block;
+}
+
+/* Кнопка доступности в шапке */
+.top-bar .accessibility-btn {
+  margin-left: auto; /* Автоматический отступ слева - прижмёт к правому краю */
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.top-bar .accessibility-btn:hover {
+  transform: scale(1.1);
+}
+
+.top-bar .accessibility-btn svg {
+  border-radius: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.accessibility-btn:hover {
+  border-radius: 24px;               /* Скругление углов у каждой ссылки */
+  background-color: #97bbea;
+  transform: scale(1.05);
+}
+
+.accessibility-btn svg {
+  border-radius: 24px;
+  width: 24px;
+  height: 24px;
+  fill: #222;
+}
+
+/* Меню навигации */
+.menu {
+  background-color: #ffffff;        /* Белый фон */
+  border-bottom: 2px solid #e1e1e1; /* Лёгкая граница */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+  padding: 12px 0;                  /* Отступы сверху и снизу */
+  text-align: center;               /* Выравнивание текста по центру */
+  border-radius: 8px;               /* Скруглённые углы */
+  margin: 10px 0;                   /* Отступы сверху и снизу */
+  font-size: 16px;
+}
+
+.menu a {
+  color: #3f51b5;                   /* Синий цвет для ссылок */
+  text-decoration: none;            /* Убираем подчеркивание */
+  padding: 8px 20px;                /* Внутренние отступы */
+  border-radius: 4px;               /* Скругление углов у каждой ссылки */
+  transition: background 0.3s, color 0.3s; /* Плавное изменение */
+}
+
+.menu a:hover {
+  background-color: #f1f1f1;       /* Светлый фон при наведении */
+  color: #007bff;                   /* Синий цвет при наведении */
+}
+
+.menu a:focus {
+  outline: none;
+  border: 1px solid #007bff;        /* Граница при фокусе */
+}
+
+/* Стиль активной ссылки */
+.menu a.active {
+  background-color: #3f51b5;       /* Активная кнопка с синим фоном */
+  color: white;                     /* Белый текст на активной ссылке */
+}
+
+
+/* Основной контейнер содержимого */
+.container {
+  margin: 20px auto;               /* Центрирование и отступы */
+  padding: 0 15px;                 /* Внутренние отступы */
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Карточки (блоки содержимого) */
+.card {
+  max-width: 1000px;
+  background: white;             /* Белый фон */
+  padding: 20px;                   /* Внутренние отступы */
+  margin: 0 auto 20px auto;         /* Отступ снизу */
+  border: 1px solid #ddd;        /* Граница */
+  border-radius: 10px;             /* Скругление углов */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card-title {
+  background: #507dbb;
+  color: aliceblue;
+  padding: 10px 16px;
+  font-size: 18px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.card--aligned {
+  margin: auto auto 10px auto; /* Фиксированный отступ для выравнивания */
+}
+
+.card svg {
+  flex-shrink: 0;
+}
+
+.layout {
+  display: flex;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Левая колонка */
+.left-content {
+  width: 65%;
+  flex-shrink: 0;
+}
+
+/* Правая колонка */
+.right-content {
+  flex: 1;
+}
+
+/* Блок профиля */
+.profile {
+  display: flex;                   /* Включаем flex-разметку */
+}
+
+/* Общие стили для ссылок */
+.profile a {
+  color: #0056b3;                    /* Цвет ссылок */
+  text-decoration: none;               /* Убираем подчёркивание */
+  border-bottom: 1px solid #0056b3;  /* Альтернативное подчёркивание */
+  transition: all 0.3s ease;           /* Плавные анимации */
+}
+
+/* Состояние при наведении на ссылки */
+.profile  a:hover {
+  color: #007bff;                    /* Изменяем цвет */
+  border-bottom: 1px solid #007bff;  /* Изменяем цвет подчёркивания */
+}
+
+/* Состояние при фокусе на ссылках */
+.profile a:focus {
+  outline: none;                       /* Убираем стандартный outline */
+  border-bottom: 2px solid #0056b3;  /* Утолщаем подчёркивание */
+}
+
+/* Добавьте эти стили в конец файла */
+
+.profile-img-container {
+  position: relative;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-img {
+  width: 128px;
+  height: 128px;
+  background-color: #ddd;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0; /* Важно: предотвращает сжатие */
+  transition: all 0.3s ease;
+}
+
+.profile-img:hover {
+  background-color: #ccc;
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.delete-photo-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s;
+}
+
+.delete-photo-btn:hover {
+  background-color: #ff5252;
+}
+
+/* Параграфы в информации профиля */
+.profile-info p {
+  margin: 4px 0;                   /* Отступы */
+  font-size: 14px;                 /* Размер шрифта */
+}
+
+/* Заголовок в информации профиля */
+.profile-info h2 {
+  margin-top: 0;                   /* Убираем отступ сверху */
+  margin-bottom: 16px;             /* Отступ снизу */
+  font-size: 18px;                 /* Размер шрифта */
+}
+
+/* Заголовок новостей */
+.news h3 {
+  margin-top: 0;                   /* Убираем отступ сверху */
+  font-size: 18px;                 /* Размер шрифта */
+}
+
+/* Список новостей */
+.news ul {
+  padding-left: 20px;              /* Отступ слева */
+}
+
+/* Элементы списка новостей */
+.news li {
+  margin-bottom: 10px;             /* Отступ снизу */
+  font-size: 14px;                 /* Размер шрифта */
+}
+
+/* Выделенный текст */
+.highlight {
+  font-weight: bold;               /* Жирный текст */
+  color: #c00;                   /* Красный цвет */
+}
+
+/* Ссылка "Все новости" */
+.all-news {
+  display: inline-block;           /* Строчно-блочный элемент */
+  margin-top: 10px;                /* Отступ сверху */
+  font-size: 14px;                 /* Размер шрифта */
+  color: #0055cc;                /* Цвет текста */
+  text-decoration: none;           /* Убираем подчёркивание */
+}
+
+/* Состояние при наведении на "Все новости" */
+.all-news:hover {
+  text-decoration: underline;      /* Добавляем подчёркивание */
+}
+
+/* Ссылки внутри выделенного текста */
+.highlight a {
+  color: #c00;                   /* Красный цвет */
+  text-decoration: none;           /* Убираем подчёркивание */
+}
+
+/* Состояние при наведении на ссылки в выделенном тексте */
+.highlight a:hover {
+  text-decoration: underline;      /* Добавляем подчёркивание */
+}
+
+/* Автор новости */
+.author {
+  color: #666;                   /* Цвет текста */
+  font-size: 0.9em;                /* Размер шрифта */
+  display: block;                  /* Блочный элемент (перенос на новую строку) */
+  margin-top: 4px;                 /* Отступ сверху */
+}
+
+/* Подвал сайта */
+.footer {
+  background-color: #333;        /* Цвет фона */
+  color: white;                  /* Цвет текста */
+  text-align: center;              /* Выравнивание по центру */
+  font-size: 12px;                 /* Размер шрифта */
+  padding: 10px 0;                 /* Внутренние отступы */
+}
+
+
+
+
+/* Стили для системы вкладок (табов) */
+.tabs {
+  display: flex;         /* Используем flex-разметку для расположения вкладок */
+  flex-wrap: wrap;       /* Разрешаем перенос на новую строку при нехватке места */
+  gap: 6px;              /* Отступ между вкладками */
+  margin-bottom: 16px;   /* Отступ снизу блока вкладок */
+}
+
+/* Стиль отдельной вкладки */
+.tab {
+  background: #e9ecf1;      /* Светло-серый фон */
+  border: 1px solid #ccc;   /* Серая рамка */
+  border-radius: 6px;         /* Скругление углов */
+  padding: 6px 12px;          /* Внутренние отступы */
+  font-size: 14px;            /* Размер шрифта */
+  cursor: pointer;            /* Курсор-указатель при наведении */
+}
+
+/* Стиль активной вкладки */
+.tab.active {
+  background: #507dbb;   /* Синий фон */
+  color: #fff;           /* Белый текст */
+}
+
+/* Стиль активной вкладки */
+.tab::after {
+  background: #507dbb;   /* Синий фон */
+  color: #fff;           /* Белый текст */
+}
+
+/* Стиль вкладки при навидении */
+.tab:hover {
+  background: #95b2da;   /* Синий фон */
+  color: #fff;           /* Белый текст */
+  transition: all 0.3s ease;           /* Плавные анимации */
+}
+
+/* Стили для секции формы */
+.form-section p {
+  font-size: 14px;       /* Размер шрифта */
+  margin-bottom: 12px;   /* Отступ снизу */
+  line-height: 1.5;      /* Межстрочный интервал */
+}
+
+/* Стили для текстового поля */
+textarea {
+  width: 100%;                 /* Ширина на весь контейнер */
+  resize: vertical;            /* Разрешаем изменять размер только по вертикали */
+  min-height: 120px;           /* Минимальная высота */
+  border: 1px solid #ccc;    /* Серая рамка */
+  border-radius: 6px;          /* Скругление углов */
+  padding: 10px;               /* Внутренние отступы */
+  margin-bottom: 16px;         /* Отступ снизу */
+  font-size: 14px;             /* Размер шрифта */
+  font-family: inherit;        /* Наследует шрифт родителя */
+  box-sizing: border-box;      /* Учитываем padding в общей ширине */
+}
+
+/* Стили для блока загрузки файлов */
+.upload {
+  margin-bottom: 16px;   /* Отступ снизу */
+  font-size: 13px;       /* Размер шрифта */
+  color: #444;         /* Темно-серый цвет текста */
+}
+
+/* Стили для поля выбора файла */
+input[type="file"] {
+  margin-top: 6px;       /* Отступ сверху */
+}
+
+/* Стили для основной кнопки */
+.btn-primary {
+  background-color: #507dbb; /* Синий фон */
+  color: white;              /* Белый текст */
+  border: none;                /* Убираем рамку */
+  padding: 8px 20px;           /* Внутренние отступы */
+  border-radius: 6px;          /* Скругление углов */
+  font-size: 14px;             /* Размер шрифта */
+  cursor: pointer;             /* Курсор-указатель */
+  transition: background-color 0.2s ease; /* Плавное изменение фона */
+}
+
+/* Состояние кнопки при наведении */
+.btn-primary:hover {
+  background-color: #3e66a3; /* Темно-синий фон */
+}
+
+/* Добавляем стили для скрытия/показа контента */
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+
+.semester-buttons {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.semester-buttons button {
+  padding: 6px 14px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.semester-buttons button.active {
+  background-color: #507dbb;
+  color: white;
+}
+
+table {
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px; /* Закругляем углы таблицы */
+  overflow: hidden; /* Чтобы закругление углов применялось и к внутренним элементам */
+
+  table-layout: fixed; /* Фиксированная ширина колонок */
+  border: 1px solid #000;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+/* Стили ячеек */
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  white-space: normal;     /* ❗ Разрешаем перенос строк */
+  word-wrap: break-word;   /* Позволяет переносить длинные слова */
+  overflow: visible;       /* Убираем скрытие */
+  text-overflow: unset;    /* Отключаем троеточие */
+}
+
+td {
+  max-width: 0;
+  overflow: hidden;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: 100%;
+}
+
+/* Фиксированные пропорции колонок */
+th:nth-child(1),
+td:nth-child(1) {
+  width: 40%; /* Дисциплина */
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 20%; /* Форма отчетности */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 13%; /* Суммарный балл */
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  width: 8%; /* Оценка */
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+  width: 19%; /* Учебный курс */
+}
+
+
+/* добавим скроллинг для маленькиих экранов*/
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: white;
+}
+
+.table-wrapper table {
+  min-width: 500px;
+  width: 100%;
+}
+
+.link {
+  color: #0056b3;
+  text-decoration: none;
+  border-bottom: 1px solid #0056b3;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link:hover {
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+/* Стили для списка */
+.section-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.section-title > h3 {
+  margin: 0px 0px 30px 0px;
+}
+
+
+.list-library ul {
+  margin-bottom: 50px;
+  list-style: none;
+  padding-left: 20px;
+}
+.list-library li {
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+}
+.list-library li::before {
+  content: url('data:image/svg+xml;utf8,<svg fill="%23999" xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>');
+  margin-right: 8px;
+}
+.list-library a {
+  text-decoration: none;
+  color: #3f51b5;
+}
+.list-library a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin: 10px 0 16px 0;
+  color: #444;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.breadcrumb a {
+  color: #3f51b5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .separator {
+  margin: 0 6px;
+  color: #888;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #34495e;
+}
+
+.form-group select, 
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.form-group select:hover, 
+.form-group input:hover {
+  border-color: #95b2da;
+}
+
+.form-group select:focus, 
+.form-group input:focus {
+  outline: none;
+  border-color: #507dbb;
+  box-shadow: 0 0 0 2px rgba(80, 125, 187, 0.2);
+}
+
+.password-note {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-top: 5px;
+}
+
+/* Стили для выпадающих списков как вкладок */
+.form-group select.tab {
+  background: #e9ecf1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-group select.tab:hover {
+  background: #d3d4d6;
+  color: #fff;
+}
+
+.form-group input.tab {
+  background: #e9ecf1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.error-message {
+  background-color: #ffdddd;
+  padding: 10px;
+  margin: 10px auto 0px auto;
+  border-radius: 8px;
+  color: #a94442;
+  font-weight: bold;
+  text-align: center;
+  outline: 1px solid #a94442;
+}
+
+.auth-card {
+  max-width: 1000px;
+  min-width: 400px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.news-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.news-list li {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+}
+
+
+/* Адаптивность */
+@media (max-width: 1000px) {
+  .layout {
+    flex-direction: column;
+  }
+  
+  .left-content {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .card-title {
+      font-size: 20px;
+    }
+
+    .form-group label {
+      font-size: 18px;
+    }
+  
+    .form-group input, .form-group select {
+      font-size: 18px;
+      padding: 8px;
+    }
+  
+    .error-message {
+      font-size: 18px;
+      padding: 8px;
+    }
+
+    .top-bar {
+      padding: 10px 15px;
+    }
+    
+    .university-logo {
+      height: 40px;
+    }
+    
+    .university-name .full-name {
+      font-size: 14px;
+    }
+    
+    .university-name .short-name {
+      font-size: 12px;
+    }
+  }
+    @media (max-width: 500px) {
+      .card-title {
+        font-size: 14px;
+      }
+
+        .auth-card {
+          min-width: auto;
+        }
+      
+        .form-group label {
+          font-size: 12px;
+        }
+      
+        .form-group input, .form-group select {
+          font-size: 12px;
+          padding: 8px;
+        }
+      
+        .error-message {
+          font-size: 12px;
+          padding: 8px;
+        }
+      
+      /* Профиль — вертикальное отображение */
+      .profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+      }
+    
+      .profile-img {
+        margin-bottom: 12px;
+        margin-right: 0;
+      }
+    
+      .profile-info h2 {
+        font-size: 16px;
+      }}
+
+    .top-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      font-size: small;
+    }
+    
+    .top-bar .subject-title {
+      display: none;
+    }
+
+    .top-bar .time {
+      display: none;
+    }
+
+    .menu {
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+    }
+    
+    .menu a {
+      display: inline;
+      margin: 4px 0;
+    }
+
+    /* Уменьшаем отступы */
+    .container {
+      padding: 10px;
+    }
+
+    /* Карточки адаптируются под узкий экран */
+    .card {
+      padding: 15px;
+      margin-bottom: 16px;
+    }
+
+    /* Таблицы становятся скроллируемыми */
+    table {
+      -webkit-overflow-scrolling: touch; /* Для плавного скролла на iOS */
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    th, td {
+      padding: 8px;
+      font-size: 13px;
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 35%;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 18%;
+    }
+    
+    .footer {
+      font-size: 12px;
+      padding: 10px 5px;
+    }
+    
+  .university-name {
+    max-width: 200px;
+  }
+}
+
+
+* {
+  transition: all 0.3s ease;
+}
+
+/*
+* {
+  outline: 1px solid red !important;
+}
+*/
