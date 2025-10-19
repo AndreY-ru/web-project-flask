@@ -92,11 +92,7 @@
 
 ### Установка зависимостей:
 ```python
-pip install Flask
-pip install PyMySQL
-pip install Unidecode
-pip install Werkzeug
-pip install cryptography
+pip install Flask PyMySQL Unidecode Werkzeug cryptography
 ```
 ### Настройка базы данных: 
 - Создайте базу данных MySQL
