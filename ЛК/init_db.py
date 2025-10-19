@@ -624,20 +624,20 @@ def create_students_table():
             # 3. Добавляем учебные материалы (обновляем под новые subject_group_id)
             course_materials_data = [
                 # Программирование (ПИНЖ-31, 5 семестр)
-                (1, "Рабочая программа", "Титульный лист", "materials/programming/title.pdf"),
-                (1, "Лекции", "Введение в C#", "materials/programming/lecture1.pdf"),
+                (1, "Рабочая программа", "Титульный лист", "uploads/materials/programming/title.pdf"),
+                (1, "Лекции", "Введение в C#", "uploads/materials/programming/lecture1.pdf"),
                 
                 # Математика (ПИНЖ-31, 5 семестр)
-                (2, "Рабочая программа", "Структура курса", "materials/math/structure.pdf"),
+                (2, "Рабочая программа", "Структура курса", "uploads/materials/math/structure.pdf"),
                 
                 # Английский (ПИНЖ-31, 6 семестр)
-                (3, "Учебное пособие", "Деловой английский", "materials/english/book.pdf"),
+                (3, "Учебное пособие", "Деловой английский", "uploads/materials/english/book.pdf"),
                 
                 # Сети и телекоммуникации (ИВЧТ-31, 5 семестр)
-                (5, "Лабораторные работы", "Лаб 1: Настройка сети", "materials/networks/lab1.pdf"),
+                (5, "Лабораторные работы", "Лаб 1: Настройка сети", "uploads/materials/networks/lab1.pdf"),
                 
                 # Математика (ИВЧТ-31, 5 семестр)
-                (6, "Конспект лекций", "Линейная алгебра", "materials/math/lectures.pdf")
+                (6, "Конспект лекций", "Линейная алгебра", "uploads/materials/math/lectures.pdf")
             ]
             cursor.executemany("""
                 INSERT INTO course_materials (subject_group_id, title, description, file_path)
