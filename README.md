@@ -14,31 +14,44 @@
   
   <h3 align="center" style="color:#fff;">🔐 Авторизация</h3>
   <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/Авторизация.png" width="80%" style="border-radius:10px;">
-
+  <br>
+  <sub style="color:gray;">Экран входа в систему с проверкой учетных данных</sub>
+  
   <br><br>
   <h3 align="center" style="color:#fff;">👤 Главная страница и профиль</h3>
   <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/Главная.png" width="80%" style="border-radius:10px;">
+  <br>
+  <sub style="color:gray;">Отображение личных данных, разделов и навигации</sub>
 
   <br><br>
   <h3 align="center" style="color:#fff;">📸 Смена аватара</h3>
   <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/ава.gif" width="80%" style="border-radius:10px;">
-
+  <br>
+  <sub style="color:gray;">Процесс выбора и загрузки новой фотографии профиля</sub>
+  
   <br><br>
   <h3 align="center" style="color:#fff;">🗂️ Работа с файлами в портфолио</h3>
   <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/загрузка_выгрузка.gif" width="80%" style="border-radius:10px;">
+  <br>
+  <sub style="color:gray;">Загрузка и скачивание учебных материалов и работ</sub>
 
   <br><br>
   <h3 align="center" style="color:#fff;">📰 Новости и детали</h3>
   <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/Детали_новости.png" width="80%" style="border-radius:10px;">
+  <br>
+  <sub style="color:gray;">Отображение списка и подробностей новостных объявлений</sub>
 
   <br><br>
   <h3 align="center" style="color:#fff;">📚 Дисциплины и оценки</h3>
   <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/Дисциплины.png" width="80%" style="border-radius:10px;">
-
+  <br>
+  <sub style="color:gray;">Список предметов, баллы и прогресс обучения</sub>
+  
   <br><br>
   <h3 align="center" style="color:#fff;">♿ Режим для слабовидящих</h3>
   <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/для_слабовидящих.gif" width="80%" style="border-radius:10px;">
-  
+  <br>
+  <sub style="color:gray;">Переключение режима с настройкой контраста, текста и озвучки</sub>
 </div>
 
 ---
