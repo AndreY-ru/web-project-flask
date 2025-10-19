@@ -6,6 +6,42 @@
 
 Проект создан с целью расширения функциональности стандартного личного кабинета студента и повышения его значимости в учебном процессе. В настоящее время ведется активная разработка и добавление нового функционала.
 
+---
+
+## 🖥️ Визуальная демонстрация
+
+<div align="center" style="background-color:#0d1117; padding: 20px; border-radius: 15px;">
+  
+  <h3 align="center" style="color:#fff;">🔐 Авторизация</h3>
+  <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/Авторизация.png" width="80%" style="border-radius:10px;">
+
+  <br><br>
+  <h3 align="center" style="color:#fff;">👤 Главная страница и профиль</h3>
+  <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/Главная.png" width="80%" style="border-radius:10px;">
+
+  <br><br>
+  <h3 align="center" style="color:#fff;">📸 Смена аватара</h3>
+  <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/ава.gif" width="80%" style="border-radius:10px;">
+
+  <br><br>
+  <h3 align="center" style="color:#fff;">🗂️ Работа с файлами в портфолио</h3>
+  <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/загрузка_выгрузка.gif" width="80%" style="border-radius:10px;">
+
+  <br><br>
+  <h3 align="center" style="color:#fff;">📰 Новости и детали</h3>
+  <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/Детали_новости.png" width="80%" style="border-radius:10px;">
+
+  <br><br>
+  <h3 align="center" style="color:#fff;">📚 Дисциплины и оценки</h3>
+  <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/Дисциплины.png" width="80%" style="border-radius:10px;">
+
+  <br><br>
+  <h3 align="center" style="color:#fff;">♿ Режим для слабовидящих</h3>
+  <img src="https://github.com/AndreY-ru/web-project-flask/blob/main/Screenshot/для_слабовидящих.gif" width="80%" style="border-radius:10px;">
+  
+</div>
+
+---
 ## 📋 Функциональность
 
 - ✅ **Авторизация студентов** - вход через учетные данные
