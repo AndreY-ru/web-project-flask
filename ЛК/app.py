@@ -206,33 +206,37 @@ def upload_profile_photo():
     if file.filename == '':
         return jsonify({'error': 'Файл не выбран'}), 400
 
-    if file and allowed_file(file.filename):
-        # Удаляем старое фото, если оно есть
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT profile_photo FROM students WHERE id = %s", (student_id,))
-            old_photo = cursor.fetchone()['profile_photo']
-            if old_photo:
-                try:
-                    os.remove(os.path.join(app.root_path, 'static', old_photo))
-                except:
-                    pass
-
-        # Сохраняем новое фото
-        filename = f"profile_{student_id}_{secure_filename(file.filename)}"
-        save_path = os.path.join(app.config['UPLOAD_FOLDER'], 'profile_photos', filename)
-        os.makedirs(os.path.dirname(save_path), exist_ok=True)
-        file.save(save_path)
-
-        # Сохраняем путь в БД
-        relative_path = f"uploads/profile_photos/{filename}"
-        with connection.cursor() as cursor:
-            cursor.execute("UPDATE students SET profile_photo = %s WHERE id = %s",
-                        (relative_path, student_id))
-            connection.commit()
-
-        return jsonify({'success': True, 'photo_url': url_for('static', filename=relative_path)})
-    else:
+    # дополнительная проверка расширения (только изображения)
+    ALLOWED_IMAGE_EXT = {'jpg','jpeg','png','gif'}
+    ext = file.filename.rsplit('.', 1)[-1].lower() if '.' in file.filename else ''
+    if ext not in ALLOWED_IMAGE_EXT:
         return jsonify({'error': 'Недопустимый формат файла'}), 400
+
+    filename = f"profile_{student_id}_{secure_filename(unidecode(file.filename))}"
+    save_dir = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], 'profile_photos')
+    os.makedirs(save_dir, exist_ok=True)
+    save_path = os.path.join(save_dir, filename)
+    file.save(save_path)
+
+    relative_path = f"uploads/profile_photos/{filename}"
+    with connection.cursor() as cursor:
+        # удаляем старое фото (если есть)
+        cursor.execute("SELECT profile_photo FROM students WHERE id = %s", (student_id,))
+        row = cursor.fetchone()
+        old_photo = row['profile_photo'] if row else None
+        if old_photo:
+            try:
+                old_full = os.path.join(app.root_path, 'static', old_photo)
+                if os.path.exists(old_full):
+                    os.remove(old_full)
+            except Exception:
+                app.logger.exception("Не удалось удалить старое фото")
+
+        cursor.execute("UPDATE students SET profile_photo = %s WHERE id = %s", (relative_path, student_id))
+        connection.commit()
+
+    return jsonify({'success': True, 'photo_url': url_for('static', filename=relative_path)})
+
 
 # Добавьте маршрут для удаления фото
 @app.route('/delete_profile_photo', methods=['POST'])
@@ -534,13 +538,13 @@ def download(file_id):
     with connection.cursor() as cursor:
         cursor.execute("SELECT file_path FROM course_materials WHERE id = %s", (file_id,))
         file_data = cursor.fetchone()
-        
+
         if not file_data or not file_data['file_path']:
             return "Файл не найден", 404
 
-        # Собираем абсолютный путь к файлу
-        rel_path = file_data['file_path']  # materials/programming/title.pdf
-        full_path = os.path.join(app.config['UPLOAD_FOLDER'], rel_path)  # static/uploads/materials/programming/title.pdf
+        # file_path в БД ожидается относительно static, например: 'uploads/materials/title.pdf'
+        rel_path = file_data['file_path']
+        full_path = os.path.join(app.root_path, 'static', rel_path)
 
         if not os.path.exists(full_path):
             return "Файл не найден", 404
@@ -548,11 +552,9 @@ def download(file_id):
         directory = os.path.dirname(full_path)
         filename = os.path.basename(full_path)
 
-        return send_from_directory(
-            directory=directory,
-            path=filename,
-            as_attachment=True
-        )
+        # Для совместимости используем позиционные аргументы
+        return send_from_directory(directory, filename, as_attachment=True)
+
 
 
 # Запуск сервера Flask
